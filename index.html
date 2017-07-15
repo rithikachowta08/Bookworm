@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/flexslider.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie|Handlee|Patrick+Hand+SC|Clicker+Script|Sacramento|Tangerine">
+    <link rel="stylesheet" href="indexstyles.css">
+    <style>
+    .icons
+    {
+        width:30px;
+        height:30px;
+        margin-right: 5px;
+    }
+    #pan
+    {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        padding:10px;
+        background: linear-gradient(to bottom right, white, blue);
+    }
+    .quote
+        {
+            font-family:'Sacramento';
+            display: inline-block;
+            font-size: 30px;
+            float: right;
+        }
+    .tab 
+    {
+    overflow: hidden;
+    background-color: midnightblue;
+    
+    }
+    .tab button 
+    {
+    background-color: inherit;
+    color: white;
+    column-width: 50px;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    }
+    .bluebut 
+    {
+    background-color: darkblue;
+    width: 300px;
+    height: 70px;
+    color: white;
+    font-size: 25px;
+    border: 1px #000;
+    box-shadow: 2px 2px #607d8b;
+    font-family:'Handlee';
+    border-radius:5px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    }
+    #about
+    {
+        margin:20px;
+        color:white;
+        font-size:19px;
+        font-family:sans-serif;
+        text-align:left;
+    }
+    .tab button:hover 
+    {
+    background-color: #ddd;
+    color: black;
+    }
+    
+
+    .tabcontent 
+    {
+    text-align: center;
+    display:block;
+    height: auto;
+    margin: 0 auto;
+    border-top: none;
+    padding:40px;
+    background-image:url('http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/2v/dp/p02vdpfn.jpg') ;
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+    }
+    .caption
+        {
+            text-decoration: underline;
+            font-size: 14px;
+            color:white
+        }
+    .table 
+    {
+    margin-left:auto; 
+    text-align:right;
+    margin-right:auto;
+    border-spacing: 4px;
+    }
+    .flexslider
+        {
+            border:0;
+            background-color: black;
+        }
+ 
+    .flex-control-paging li a
+        {
+            background: white;
+        }
+    .flex-control-paging li a.flex-active
+        {
+            background: grey;
+        }
+    .flex-control-nav
+        {
+            bottom:-5px;
+        }
+   
+    #flexslider-carousel {
+  margin: 0 auto;
+  width: 300px;
+  height: 540px;
+
+
+}
+        #panel
+        {
+            background-color: rgba(0,0,0,0.7);
+            padding:40px;
+        }
+
+.flex-next, .flex-prev { height: 46px !important; }
+   .flexslider .slides img
+        {
+            margin-bottom: 5px;
+            
+        }
+   
+    </style>
+</head>
+<body>
+        <div class="w3-panel" id="pan">
+            <a href="/"><img src="Picture1.png" id="worm"></a>
+            <h1 class="main">BookWorm<div class="quote">A reader lives a thousand lives before he dies. The man who never reads lives only one. </div></h1>
+            <h5 class="subh">Lend.Borrow.Connect<div class="quote" style="font-size:24px">-George R.R. Martin</div></h5>
+            
+        </div>
+        <div class="tab">
+          <button class="tablinks" onclick="window.location='/'" style="background-color:white;color:black;">Home</button>
+          <button class="tablinks" onclick="window.location='/login.html'">Login</button>
+          <button class="tablinks" onclick="window.location='/register.html'">Register</button>
+        </div>
+        <div class= "tabcontent" id="Home">
+            <div id="panel">
+           <div id="flexslider-carousel" class="flexslider">
+  <ul class="slides">
+    <li>
+      <img class="books" src="http://ecx.images-amazon.com/images/I/51Vb90Q1SlL._SX324_BO1,204,203,200_.jpg"  />
+      <a class="caption" style="font-size:16px">A Game Of Thrones, George R.R. Martin</a>
+    </li>
+    <li>
+      <img class="books" src="https://images-na.ssl-images-amazon.com/images/I/51P530HM6CL.jpg" />
+    <a class="caption">Harry Potter and The Half-Blood Prince, J.K. Rowling</a>
+    </li>
+      <li>
+      <img class="books" src="http://prodimage.images-bn.com/pimages/9781101606377_p0_v8_s1200x630.jpg" />
+          <a class="caption" style="font-size:18px">Me Before You, Jojo Moyes</a>
+    </li>
+    <li>
+      <img class="books" src="http://images.gr-assets.com/books/1327500879l/3390246.jpg"  />
+        <a class="caption" style="font-size:18px">Change of heart, Jodi Picoult</a>
+    </li>
+  </ul>
+</div>
+        <div id="about">
+        Hi there! Are you an avid reader who can never get enough of books? You've come to the right place! BookWorm lets you lend books to your friends and earn points in return. Using your points, you can request books from other users. <p>Start reading in a few simple steps: </p>
+            <p>  1. Select the book you want to read.</p>
+            <p>  2. Request the book from the nearest lender.</p>
+            <p>  3. Wait for your book to arrive, read and mail it back to the sender. </p><br><br>
+            If you're more of the giving type, <p>  1. Add the books you want to lend to your Book shelf.</p> 
+            <p>  2. Accept incoming book requests from borrowers and earn points.</p>   
+            <p>  3. Mail it to the borrower.</p> 
+    </div>
+        </div>
+    </div>
+        <div style="clear:both;"></div>
+        <div id="foot">
+            <h5 id="footcon">Share the good news: <a href="https://www.facebook.com/BookWorm-Your-go-to-for-book-sharing-700103043513780/" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/facebook-128.png" class="icons"></a> 
+                <a href="https://twitter.com/bookwormbyrithi" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/twitter-128.png" class="icons"></a>
+               <a href="https://www.instagram.com/bookwormbyrithi/?hl=en" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/instagram-128.png" class="icons"></a></h5>
+         <h6>Email us at: rithika.chowta08@gmail.com<br><img class="icons" src="https://maxcdn.icons8.com/Share/icon/Business//copyright1600.png" style="margin-bottom:-10px;">Copyright 2017. Powered by Hasura.</h6>
+        </div>  
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.js"></script>
+    <script>
+       $(function() {
+  $('.flexslider').flexslider({
+    animation: 'slide',
+    slideshowSpeed: 2500
+  });
+});
+    </script>
+    </body>
+</html>
