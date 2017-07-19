@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie|Handlee|Patrick+Hand+SC|Clicker+Script|Sacramento|Tangerine">
+    <link rel="stylesheet" href="indexstyles.css">
+    <style>
+    .bluebut 
+    {
+   
+    margin-top:20px;
+    
+    }
+  
+   </style>
+</head>
+<body>
+        <div class="w3-panel" id="pan">
+            <a href="/"><img src="Picture1.png" id="worm"></a>
+            <h1 class="main">BookWorm<div class="quote">A reader lives a thousand lives before he dies. The man who never reads lives only one. </div></h1>
+            <h5 class="subh">Lend.Borrow.Connect<div class="quote" style="font-size:24px">-George R.R. Martin</div></h5>
+            
+        </div>
+        <div class="tab">
+          <button class="tablinks" onclick="window.location='/'">Home</button>
+          <button class="tablinks" onclick="window.location='/login.html'" style="background-color:white;color:black;">Login</button>
+          <button class="tablinks" onclick="window.location='/register.html'">Register</button>
+        </div>
+
+        <div id="Login" class="tabcontent"><br>
+            <table class="table" cell-padding="10px">
+             <tr>
+                <td>Username:</td> 
+                 <td><input type="text" id="uname"></td>
+            </tr>
+                <tr></tr>
+                <tr>
+               <td>Password:</td> <td><input type="password" id="password" onkeydown = "if (event.keyCode == 13)
+                        document.getElementById('loginbut').onclick()"></td>
+                </tr>
+            </table>
+        <input type="submit" id="loginbut" class="bluebut" value="Log into awesomeness!">
+         <br><br>Not a member yet? <a onclick="window.location='/register.html'" style="text-decoration:underline;color:blue;cursor:pointer">Register</a> now!
+        </div>
+        <div style="clear:both;"></div>
+       <div id="foot">
+            <h5 id="footcon">Share the good news: <a href="https://www.facebook.com/BookWorm-Your-go-to-for-book-sharing-700103043513780/" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/facebook-128.png" class="icons"></a> 
+                <a href="https://twitter.com/bookwormbyrithi" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/twitter-128.png" class="icons"></a>
+               <a href="https://www.instagram.com/bookwormbyrithi/?hl=en" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/instagram-128.png" class="icons"></a></h5>
+         <h6>Email us at: rithika.chowta08@gmail.com<br><img class="icons" src="https://maxcdn.icons8.com/Share/icon/Business//copyright1600.png" style="margin-bottom:-10px;">Copyright 2017. Powered by Hasura.</h6>
+        </div>  
+   
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <script>
+    var user_id;
+    var auth_token;
+        
+        //FUNCTION TO CHECK IF USER DETAILS ALREADY ENTERED
+        checkuser= function()
+        {
+                    
+                    var request= new XMLHttpRequest();
+                    request.onreadystatechange=function(){
+                          if(request.readyState===XMLHttpRequest.DONE){
+
+                             if(request.status===200) 
+                              { 
+                               console.log(this.responseText);
+                               console.log(this.responseText=="[]");
+                               if((this.responseText)=="[]")
+                                   localStorage.setItem("done","false");
+                                else
+                                   localStorage.setItem("done","true");
+                                console.log(localStorage.getItem("done"));
+                              }
+                              else 
+                              { 
+                                console.log(this.responseText);
+                              }
+                         }               
+
+                    }     
+                    request.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
+                    request.setRequestHeader('Content-type','application/json');
+                    request.withCredentials=true;
+                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request.send(JSON.stringify({type:"select",args:{
+                    table:"User_info",
+                    columns:[
+                        "city"
+                    ],
+                    where:{"hasura_id":user_id}
+                }
+}));  }
+        
+         //FUNCTION TO INSERT HASURA_ID AND CITY--EXECUTES ONLY ONCE
+        insertuser= function()
+        {
+                    var city=localStorage.getItem("city");
+                    var name=document.getElementById("uname").value;
+                    var request= new XMLHttpRequest();
+                    request.onreadystatechange=function(){
+                          if(request.readyState===XMLHttpRequest.DONE){
+
+                             if(request.status===200) 
+                              { 
+                               console.log("inserted user");
+                                
+                              }
+                              else 
+                              { 
+                                console.log(this.responseText);
+                              }
+                         }               
+
+                    }     
+                    request.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
+                    request.setRequestHeader('Content-type','application/json');
+                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request.withCredentials=true;
+                    request.send(JSON.stringify({type:"insert",args:{
+        table:"User_info",
+        objects:[
+            {"hasura_id":user_id,"points":400,"city":city,"name":name,"file_id":null}
+        ]
+    }
+})); 
+        } 
+        // LOGIN
+       $(document).ready(function()
+        {
+        var loginbut = document.getElementById("loginbut");
+        loginbut.onclick= function()
+        {
+            var request= new XMLHttpRequest();
+            
+            var username;
+            request.onreadystatechange=function(){
+                          if(request.readyState===XMLHttpRequest.DONE){
+
+                             if(request.status===200) 
+                              { 
+                                user_id=JSON.parse(this.responseText).hasura_id;
+                                auth_token=JSON.parse(this.responseText).auth_token; 
+                                document.cookie='user_id='+user_id;
+                                document.cookie='auth_token='+auth_token;
+                                console.log(document.cookie);
+                                checkuser();
+                                console.log(localStorage.getItem("done"));
+                                if((localStorage.getItem("done"))=="false")
+                                  insertuser();
+                                window.location="/dashboard.html";
+                              }
+                              else 
+                              { 
+                                console.log(this.responseText);
+                                alert("Invalid username/password!");
+                              }
+                         }               
+
+                    }    
+            var username= document.getElementById("uname").value;
+            var password= document.getElementById("password").value;
+            request.open('POST', "http://auth.bookwormbyrithi.hasura.me/login", true);
+            request.setRequestHeader('Content-type','application/json');
+            request.send(JSON.stringify({username : username,password : password})); 
+        }
+       });
+    
+       
+        
+       
+          
+    </script>
+    </body>
+</html>

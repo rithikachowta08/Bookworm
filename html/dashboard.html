@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie|Handlee|Patrick+Hand+SC|Clicker+Script|Sacramento|Tangerine">
+    <link rel="stylesheet" href="indexstyles.css">
+    <style>
+
+    .bluebut 
+        {
+       
+        width: 70px;
+        height: 23px;
+        color: white;
+        margin-left:10px;
+        margin-bottom:10px;
+        font-size: 16px;
+       
+        }
+    #profimg
+        {
+            width:50px;
+            height:50px;
+            float:right;
+            border-radius:50%;
+            margin-right:4px;
+            margin-top:15px;
+            margin-bottom: -11px;
+        }
+     .searchimg
+        {
+            width:30px;
+            height:30px;
+            border-radius:50%;
+            margin-top:5px;
+            margin-left:4px;
+        }
+    #prof
+        {
+            float:right;
+            line-height: 10%;
+            font-size: 16px;
+            margin:0px 2px 4px 0px;
+            font-family: sans-serif;
+            text-decoration: underline;
+            cursor: pointer;
+            color: white;  
+        }
+     #hey
+        {
+            float:right;
+            margin-top:10px;
+            margin-right:15px;
+            line-height: 10%;
+            font-size: 15px;
+            font-family: sans-serif;
+            color: white;  
+        }
+    #searchbar
+        {
+            
+            font-size: 15px;
+            font-family: sans-serif;
+            width: 300px;
+            border-bottom-right-radius: 2px;
+            border-top-left-radius: 2px;
+            line-height: 160%;
+        }
+   
+    #searchicon
+        {
+           width:34px;
+           margin-bottom: -12px;
+           cursor: pointer;
+        }
+        #dash
+        {
+            background-image:url('http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/2v/dp/p02vdpfn.jpg') ;
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 800px;
+        }
+       
+        .tabcontent 
+        {
+        background-color: rgba(0,0,0,0.7);
+        width:80%;
+        color:white;
+        text-align: center;
+        display:none;
+        height: auto;
+        padding:10px;
+        margin:40px 130px 40px 40px;
+        float:right;
+        border-top: none;
+        }
+        
+        .cattabcontent
+        {
+        text-align: center;
+        display:none;
+        height: auto;
+        margin: 0 auto;
+        border-top: none;
+        }
+        
+
+        .verttab {
+        float: left;
+        border-right: 1px solid #ccc;
+        margin-top: 0;
+        background-color: white;
+        width: 20%;
+        height: 740px;
+            }
+
+        
+        .verttab button {
+            display: block;
+            background-color: inherit;
+            color: black;
+            padding: 22px 16px;
+            width: 100%;
+            border:none;
+            font-family: 'Patrick Hand SC';
+            font-size: 20px;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        
+        .verttab button:hover {
+            background-color: #ddd;
+        }
+
+        
+        .verttab button.active {
+            background-color: midnightblue;
+            color: white;
+        }
+
+        
+        .verttabcontent {
+            
+            float: right;
+            padding: 20px 12px 40px;
+            background-color: black;
+            opacity: 0.7;
+            color:white;
+            width: 80%;
+            display:none;
+            height: auto;
+        }
+   
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+    .dropdown-content 
+        {
+    margin-top:10px; 
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 20px 10px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #f1f1f1;cursor:pointer; }
+.show {display:block;}
+    </style>
+</head>
+<body>
+        <div class="w3-panel" id="pan" style="margin-bottom:0px;">
+            <a href="/dashboard.html"><img src="Picture1.png" id="worm"></a>
+            <img id="profimg">
+            <h1 class="main">BookWorm<div id="hey">Hey,&nbsp<div class="dropdown">
+  <a id="prof"></a>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="/moredetails.html">Edit profile</a>
+      <a onclick=logout()>Logout</a>
+  </div>
+</div></div></h1>
+            <h5 class="subh">Lend.Borrow.Connect</h5>
+            
+        </div>
+        <div id="dash">
+            
+                 <div class="tab">
+                  <button class="tablinks active" onclick="opentab(event, 'Categories')">Categories</button>
+                  <button class="tablinks" onclick="opentab(event,'My bookshelf')">My bookshelf</button>
+                  <button class="tablinks" onclick="opentab(event,'Book requests')">Book requests</button>
+                  <button class="tablinks" onclick="opentab(event, 'Books borrowed')">Books borrowed</button>
+                  <button class="tablinks" onclick="opentab(event, 'Books lent')">Books lent</button>
+                   <button class="tablinks" onclick="opentab(event, 'search')" id="searchlink">Search</button>
+                  <button class="tablinks" onclick="window.open('http://rithihasura.blogspot.in/', '_blank');">Blog</button>
+                </div>
+            <div class="cattabcontent" id="Categories">
+                                        <div class="verttab">
+                                          <button class="verttablinks" onclick="openverttab(event, 'Fiction')">Fiction</button>
+                                          <button class="verttablinks" onclick="openverttab(event, 'Juvenile Fiction')">Juvenile Fiction</button>
+                                          <button class="verttablinks" onclick="openverttab(event, 'Young Adult Fiction')">Young Adult Fiction</button>
+                                        </div>
+
+                            <div id="Fiction" class="verttabcontent"></div>
+                            <div id="Juvenile Fiction" class="verttabcontent"></div>
+                            <div id="Young Adult Fiction" class="verttabcontent"></div>
+                            
+
+            </div>
+            <div class="tabcontent" id="My bookshelf"></div>
+            <div class="tabcontent" id="Book requests"></div>
+            <div class="tabcontent" id="Books borrowed"> </div>
+            <div class="tabcontent" id="Books lent"></div>
+            <div class="tabcontent" id="search"><div><input id="searchbar" type="text" placeholder="Search books/users" onclick="document.getElementById('searchbar').placeholder=''"onkeydown = "if (event.keyCode == 13)
+                        document.getElementById('searchicon').onclick()" ><img src="http://icons.iconarchive.com/icons/alecive/flatwoken/512/Apps-Search-icon.png" onclick='search(document.getElementById("searchbar").value)' id="searchicon"></div>
+                <div id="searchres"></div>
+            </div>
+          </div> 
+    
+      <div style="clear:both;"></div>
+        <div id="foot">
+            <h5 id="footcon">Share the good news: <a href="https://www.facebook.com/BookWorm-Your-go-to-for-book-sharing-700103043513780/" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/facebook-128.png" class="icons"></a> 
+                <a href="https://twitter.com/bookwormbyrithi" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/twitter-128.png" class="icons"></a>
+               <a href="https://www.instagram.com/bookwormbyrithi/?hl=en" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/instagram-128.png" class="icons"></a></h5>
+         <h6>Email us at: rithika.chowta08@gmail.com<br><img class="icons" src="https://maxcdn.icons8.com/Share/icon/Business//copyright1600.png" style="margin-bottom:-10px;">Copyright 2017. Powered by Hasura.</h6>
+        </div>  
+   
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="dash.js"></script>
+      <script>
+            document.getElementById("Categories").style.display="block";
+    </script>
+    </body>
+</html>

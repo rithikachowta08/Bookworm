@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bookworm</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie|Handlee|Patrick+Hand+SC|Clicker+Script|Sacramento|Tangerine">
+    <link rel="stylesheet" href="../indexstyles.css">
+    <style>
+    .bluebut 
+    {
+    
+    width: 200px;
+    height: 70px;
+    margin-right:40px;
+    margin-top:20px;
+    font-size: 18px;
+    }
+    .bluebut 
+        {
+       
+        width: 70px;
+        height: 23px;
+        color: white;
+        margin-left:10px;
+        margin-bottom:10px;
+        font-size: 16px;
+       
+        }
+    #profimg
+        {
+            width:50px;
+            height:50px;
+            float:right;
+            border-radius:50%;
+            margin-right:4px;
+            margin-top:15px;
+        }
+    #prof
+        {
+            float:right;
+            line-height: 10%;
+            font-size: 16px;
+            margin:0px 2px 4px 0px;
+            font-family: sans-serif;
+            text-decoration: underline;
+            cursor: pointer;
+            color: white;  
+        }
+     #hey
+        {
+            float:right;
+            margin-top:10px;
+            margin-right:15px;
+            line-height: 10%;
+            font-size: 15px;
+            font-family: sans-serif;
+            color: white;  
+        }
+  
+        #dash
+        {
+            background-image:url('http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/2v/dp/p02vdpfn.jpg') ;
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 800px;
+        }
+       
+        .tabcontent 
+        {
+        background-color: rgba(0,0,0,0.7);
+        width:90%;
+        color:white;
+        text-align: center;
+        height: 700px;
+        padding:60px;
+        margin:40px;
+        float:right;
+        border-top: none;
+        }
+    
+   
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+    .dropdown-content 
+        {
+    margin-top:10px; 
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 20px 10px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #f1f1f1;cursor:pointer; }
+.show {display:block;}
+    .table 
+    {
+    margin-left:40px; 
+    text-align:left;
+    border-spacing: 20px;
+      
+    }
+    #usershelf
+        {
+           margin-top:100px; 
+        }
+    #userimg
+    {
+        width:300px;
+        margin:30px 10px 30px 20px;
+    }
+   
+    </style>
+</head>
+<body>
+        <div class="w3-panel" id="pan" style="margin-bottom:0px;">
+            <a href="/dashboard.html"><img src="Picture1.png" id="worm"></a>
+            <img id="profimg">
+            <h1 class="main">BookWorm<div id="hey">Hey,&nbsp<div class="dropdown">
+  <a id="prof"></a>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="/moredetails.html">Edit profile</a>
+      <a onclick=logout()>Logout</a>
+  </div>
+</div></div></h1>
+            <h5 class="subh">Lend.Borrow.Connect</h5>
+            
+        </div>
+    
+       <div id="dash"> 
+           <div class="tabcontent">
+           <button class="bluebut" style="float:right;width:60px;height:30px" onclick='window.location="/dashboard.html"'>Back</button>
+           <img id="userimg" style="float:left">
+           <table class="table" cell-padding="40px"><br>
+               <tr>
+                   <td id="name"></td>
+               </tr>
+               <tr>
+                   <td id="city"></td>
+               </tr>
+               <tr>
+                   <td id="points"></td>
+               </tr>
+            </table>
+           <!--<div id='msg'><input type="text" name="message" placeholder="Enter message"><button class="bluebut" style="width:120px;height:30px">Send message</button></div>--><div id="usershelf"></div>
+           </div>
+        </div> 
+        <div style="clear:both;"></div>
+        <div id="foot">
+            <h5 id="footcon">Share the good news: <a href="https://www.facebook.com/BookWorm-Your-go-to-for-book-sharing-700103043513780/" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/facebook-128.png" class="icons"></a> 
+                <a href="https://twitter.com/bookwormbyrithi" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/twitter-128.png" class="icons"></a>
+               <a href="https://www.instagram.com/bookwormbyrithi/?hl=en" target="_blank"><img src="https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/instagram-128.png" class="icons"></a></h5>
+         <h6>Email us at: rithika.chowta08@gmail.com<br><img class="icons" src="https://maxcdn.icons8.com/Share/icon/Business//copyright1600.png" style="margin-bottom:-10px;">Copyright 2017. Powered by Hasura.</h6>
+        </div>   
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+       
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js"></script>
+    <script src="../dash.js"></script>
+     <script>   
+   function getParameterByName(name, url) 
+        {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        
+        var other_user_id=getParameterByName("user_id");
+        
+    //GET USER INFO
+ $(document).ready(function()
+        {
+ 
+            var request2=new XMLHttpRequest();
+             
+                    request2.onreadystatechange=function(){
+                          if(request2.readyState===XMLHttpRequest.DONE){
+
+                             if(request2.status===200) 
+                              { 
+                               var res=JSON.parse(this.responseText);
+                                document.getElementById("name").innerHTML=res[0].name;
+                                document.getElementById("city").innerHTML=res[0].city;
+                                document.getElementById("points").innerHTML="Points:&nbsp;"+res[0].points;
+                                getusershelf(res[0].name);
+                               
+                              }
+                              else 
+                              { 
+                                console.log(this.responseText);
+                              }
+                         }               
+
+                    }     
+                    
+            if(user_id!=undefined)
+                {
+                  
+                    request2.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
+                    request2.setRequestHeader('Content-type','application/json');
+                    request2.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request2.withCredentials=true;
+                    request2.send(JSON.stringify({type:"select",args:{
+        table:"User_info",
+        "columns":["city","points","name"],
+        where:{"hasura_id":other_user_id}
+    }
+})); 
+           
+                   
+                }
+        });
+    
+         //GET USER SHELF
+      function getusershelf(name)
+         {
+             var request2=new XMLHttpRequest();
+             
+                    request2.onreadystatechange=function(){
+                          if(request2.readyState===XMLHttpRequest.DONE){
+
+                             if(request2.status===200) 
+                              { 
+                               document.getElementById("usershelf").innerHTML='<h2 style="font-family:\'Sacramento\'">'+name+'\'s bookshelf:</h2>';
+                               var res=JSON.parse(this.responseText);
+                               
+                               for(var i=0;i<res.length;i++)
+                                   {
+                                       document.getElementById("usershelf").innerHTML+="<a style='cursor: pointer;text-decoration:underline;padding:3px;' onclick='getbookpage("+res[i].isbn+")'>"+res[i].name+"</a>, "+res[i].author+"("+res[i].points_reqd+" pts)<button class='bluebut' onclick='sendrequest("+res[i].book_id+","+other_user_id+");'>Request</button><br>"
+                                   }
+                              }
+                              else 
+                              { 
+                                console.log(this.responseText);
+                              }
+                         }               
+
+                    }     
+                    
+            if(user_id!=undefined)
+                {
+                  
+                    request2.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
+                    request2.setRequestHeader('Content-type','application/json');
+                    request2.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request2.withCredentials=true;
+                    request2.send(JSON.stringify({type:"select",args:{
+        table:"user_book_shelf",
+        "columns":["book_id","author","points_reqd","name","isbn"],
+        where:{"user_id":other_user_id}
+    }
+})); 
+           
+                   
+                }
+        
+        
+         }
+            
+  
+        
+        //GET PROFILE PIC
+   $(document).ready(function()
+  {  
+        var request=new XMLHttpRequest();
+        request.onreadystatechange=function(){
+                          if(request.readyState===XMLHttpRequest.DONE){
+
+                             if(request.status===200) 
+                              { 
+                                var res = JSON.parse(this.responseText);
+                                file= res[0].file_id;
+                                if(file==null)
+                                  document.getElementById("userimg").src='https://www.tm-town.com/assets/default_female600x600-3702af30bd630e7b0fa62af75cd2e67c.png';
+                                else
+                                    document.getElementById("userimg").src ='http://filestore.bookwormbyrithi.hasura.me/v1/file/'+file;
+                              }
+                              else 
+                              { 
+                                  console.log(this.responseText);
+                              }
+                         }               
+
+                    }
+        if(user_id!=undefined)
+            {
+                request.open('POST'," http://data.bookwormbyrithi.hasura.me/v1/query ", true);   //get file id
+                    request.withCredentials=true;
+                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request.setRequestHeader('Content-type','application/json');
+                    request.send(JSON.stringify({
+    type:"select",
+    args:{
+        table:"User_info",
+        columns:["file_id"],
+        where:{"hasura_id":other_user_id}
+}
+}));
+                }
+            });
+   
+   //UPDATE USER INFO
+       updateinfo=function()
+       {
+           var request2=new XMLHttpRequest();
+         request2.onreadystatechange=function(){
+                    if(request2.readyState===XMLHttpRequest.DONE){
+
+                                     if(request2.status===200) 
+                                      { 
+                                        alert("Profile updated");
+                                        console.log(this.responseText);
+                                        location.reload();
+                                      }
+                                      else 
+                                      { 
+                                        alert("Oops! Something went wrong");
+                                        console.log(this.responseText);  
+                                      }
+                                 }               
+
+                            }
+        
+         request2.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
+                    request2.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request2.setRequestHeader('Content-type','application/json');
+                    request2.withCredentials=true;
+                    request2.send(JSON.stringify({
+    "type" : "update",
+    "args" : {
+        "table" : "User_info",
+        "$set": {"file_id": file_id},
+        "where": {
+            "hasura_id": user_id
+        }
+    }
+}))
+       }
+      
+   
+      
+      </script>
+   </body>
+</html>
