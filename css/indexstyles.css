@@ -29,9 +29,9 @@ body
     background-color: midnightblue;
     
     }
-.tab button:hover 
+div.tab button:hover 
     {
-    background-color: #ddd;
+    background-color: white;
     color: black;
     }
     
@@ -42,7 +42,7 @@ body
     margin-right:auto;
     border-spacing: 4px;
     }
-    .tab button 
+    div.tab button
     {
     background-color: inherit;
     color: white;
@@ -54,6 +54,33 @@ body
     padding: 14px 16px;
     transition: 0.3s;
     }
+   div.tab button.active {
+    background-color: #ccc;
+    color:black
+}
+
+   
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+    .dropdown-content 
+        {
+    margin-top:10px; 
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 20px 10px;
+    text-decoration: none;
+    display: block;
+}
   
     .bluebut 
     {
@@ -98,7 +125,7 @@ body
         height:30px;
         margin-right: 5px;
     }
-    
+
    
 .subh{
     font-family:'Handlee';

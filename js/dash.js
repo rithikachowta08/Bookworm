@@ -139,14 +139,13 @@ function opentab(evt, tname)
                               { 
                                  if(JSON.parse(this.responseText).length!=0)
                                      {
-                                var content = '<div>';
+                                var content = '';
                                 console.log(this.responseText); 
                                 var catbooks = JSON.parse(this.responseText);
                                 for (var i=(catbooks.length)-1; i >=0; i--) {
                                 var name= catbooks[i].name;
-                                content += "<a style='cursor: pointer;' onclick='getbookpage("+catbooks[i].isbn+")'>"+catbooks[i].name+", "+catbooks[i].author+"</a><br>";
+                                content += "<a class='booklink' onclick='getbookpage(\""+catbooks[i].isbn+"\")'>"+catbooks[i].name+", "+catbooks[i].author+"</a><br>";
                             }
-                                  content+="</div>";
                             document.getElementById(category).innerHTML = content;
                                 
                                 }
@@ -174,203 +173,169 @@ function opentab(evt, tname)
 
         }
    
-//get book details page
-function getbookpage(isbn)
-{
-    console.log('called with '+isbn);
-    var request=new XMLHttpRequest();
-    request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
 
-                             if(request.status===200) 
-                              { 
-                                
-                                window.location='/bookdetails.html?isbn='+isbn;
-                              }
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                                
-                              }
-                            }
-                                  
-                                
-                                
-                              
-                         }               
+    //get user details page
+    function getuserpage(user_id)
+    {
+        console.log('called with '+user_id);
+        var request=new XMLHttpRequest();
+        request.onreadystatechange=function(){
+                              if(request.readyState===XMLHttpRequest.DONE){
 
-                    request.open('GET',"/bookdetails.html?isbn="+isbn, true);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(null);
-                    
-                    
-                
-    
-}
+                                 if(request.status===200) 
+                                  { 
 
-//get user details page
-function getuserpage(user_id)
-{
-    console.log('called with '+user_id);
-    var request=new XMLHttpRequest();
-    request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
+                                    window.location='/userdetails.html?user_id='+user_id;
+                                  }
+                                  else 
+                                  { 
+                                      console.log(this.responseText); 
 
-                             if(request.status===200) 
-                              { 
-                                
-                                window.location='/userdetails.html?user_id='+user_id;
-                              }
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                                
-                              }
-                            }
-                                  
-                                
-                                
-                              
-                         }               
+                                  }
+                                }
 
-                    request.open('GET','/userdetails.html?user_id='+user_id, true);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(null);
-                    
-                    
-                
-    
-}
+
+
+
+                             }               
+
+                        request.open('GET','/userdetails.html?user_id='+user_id, true);
+                        request.setRequestHeader('Content-type','application/json');
+                        request.send(null);
+
+
+
+
+    }
     //GET BOOK SHELF     
     function getbookshelf()
     {
-             var request= new XMLHttpRequest();
-            
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
+                 var request= new XMLHttpRequest();
 
-                             if(request.status===200) 
-                              { 
-                                
-                               if(JSON.parse(this.responseText).length!=0)
-                                    {
-                                var content = '<div>';
-                                 bksh=JSON.parse(this.responseText);
-                                for(var i=0;i<=(bksh.length-1);i++)
-                                    {
-                                        content += "<div id='shelf"+bksh[i].book_id+"'><a style='cursor: pointer;text-decoration:underline;' onclick='getbookpage("+bksh[i].isbn+")'>"+bksh[i].name+"</a>, "+bksh[i].author+"("+bksh[i].points_reqd+" pts)<button class='bluebut' onclick='removebook("+bksh[i].book_id+");'>Remove</button></div><hr>";
-                                    }
-                                 content+="</div>";
-                                 document.getElementById("My bookshelf").innerHTML = content;
-        
-                            } 
-                                  else
-                                      document.getElementById("My bookshelf").innerHTML='No books on your shelf. Head to the <a class="blah" style="text-decoration:underline;cursor: pointer" onclick="opensearch(event, \'search\')">search</a> tab and add the books you have to your shelf';     
-                                    }
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                                
-                              }
-                            }
-                                  
-                                
-                                
-                              
-                         }               
+                request.onreadystatechange=function(){
+                              if(request.readyState===XMLHttpRequest.DONE){
 
-                    
-           
-            
-            if(user_id!=undefined)
-                {
-                    
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"select",args:{table:"user_book_shelf", columns:["name","author","points_reqd","book_id","isbn"],  where:{"user_id":user_id}}}));
-                    
-                    
-                }
-        }
-function opensearch(evt,name)
-{
-    opentab(evt,name);
-    
-}
+                                 if(request.status===200) 
+                                  { 
+
+                                   if(JSON.parse(this.responseText).length!=0)
+                                        {
+                                    var content = '';
+                                     bksh=JSON.parse(this.responseText);
+                                    for(var i=0;i<=(bksh.length-1);i++)
+                                        {
+                                            content += "<div style='width:100%' class='booklink' id='shelf"+bksh[i].book_id+"'><a style='text-decoration:underline' onclick='getbookpage(\""+bksh[i].isbn+"\")'>"+bksh[i].name+"</a>, "+bksh[i].author+"("+bksh[i].points_reqd+" pts)<button class='bluebut' onclick='removebook("+bksh[i].book_id+");'>Remove</button></div><br>";
+                                        }
+                                     document.getElementById("My bookshelf").innerHTML = content;
+
+                                } 
+                                      else
+                                          document.getElementById("My bookshelf").innerHTML='<div style="width:100%"class="booklink">No books on your shelf. Head to the <a class="blah" style="text-decoration:underline;cursor: pointer" onclick="opensearch(event, \'search\')">search</a> tab and add the books you have to your shelf</div>';     
+                                        }
+                                  else 
+                                  { 
+                                      console.log(this.responseText); 
+
+                                  }
+                                }
+
+
+
+
+                             }               
+
+
+
+
+                if(user_id!=undefined)
+                    {
+
+                        request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
+                        request.withCredentials=true;
+                        request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                        request.setRequestHeader('Content-type','application/json');
+                        request.send(JSON.stringify({type:"select",args:{table:"user_book_shelf", columns:["name","author","points_reqd","book_id","isbn"],  where:{"user_id":user_id}}}));
+
+
+                    }
+            }
+    function opensearch(evt,name)
+    {
+        opentab(evt,name);
+
+    }
 
     //REMOVE BOOK FROM SHELF
     function removebook(id)
-    {
-        var request= new XMLHttpRequest();
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
+        {
+            var request= new XMLHttpRequest();
+                request.onreadystatechange=function(){
+                              if(request.readyState===XMLHttpRequest.DONE){
 
-                             if(request.status===200) 
-                              {                                
+                                 if(request.status===200) 
+                                  {                                
 
-                               
-                                    document.getElementById('shelf'+id).remove();
-                                
-                            }
-                                
-                            
-                                  
-                                
-                                
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                              }
-                         }               
 
-                    } 
-                                                                                         
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"delete",args:{table:"user_shelf", where:{"user_id":user_id,"book_id":id}}}));
- 
-    }
-//LEND BOOK
-function lendbook(id,points_reqd,borrower_id)
-    {
-        var request= new XMLHttpRequest();
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
+                                        document.getElementById('shelf'+id).remove();
 
-                             if(request.status===200) 
-                              {                                
+                                }
 
-                               
-                                    addpts(points_reqd,user_id);
-                                    subpts(points_reqd,borrower_id);
-                                
-                                    
-                            }
-                                
-                            
-                                  
-                                
-                                
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                              }
-                         }               
 
-                    } 
-                                                                                         
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"update",args:{table:"user_shelf", $set:{"returned":false},where:{"user_id":user_id,"book_id":id}}}));
- 
-    }
-        
+
+
+
+                                  else 
+                                  { 
+                                      console.log(this.responseText); 
+                                  }
+                             }               
+
+                        } 
+
+                        request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
+                        request.withCredentials=true;
+                        request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                        request.setRequestHeader('Content-type','application/json');
+                        request.send(JSON.stringify({type:"delete",args:{table:"user_shelf", where:{"user_id":user_id,"book_id":id}}}));
+
+        }
+    //LEND BOOK
+    function lendbook(id,points_reqd,borrower_id)
+        {
+            var request= new XMLHttpRequest();
+                request.onreadystatechange=function(){
+                              if(request.readyState===XMLHttpRequest.DONE){
+
+                                 if(request.status===200) 
+                                  {                                
+
+
+                                        addpts(points_reqd,user_id);
+                                        subpts(points_reqd,borrower_id);
+                                        alert("Book lent!");
+
+                                }
+
+
+
+
+
+                                  else 
+                                  { 
+                                      console.log(this.responseText); 
+                                  }
+                             }               
+
+                        } 
+
+                        request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
+                        request.withCredentials=true;
+                        request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                        request.setRequestHeader('Content-type','application/json');
+                        request.send(JSON.stringify({type:"update",args:{table:"user_shelf", $set:{"returned":false},where:{"user_id":user_id,"book_id":id}}}));
+
+        }
+
     //GET BOOK REQUESTS    
     function getrequest()
     {
@@ -385,17 +350,17 @@ function lendbook(id,points_reqd,borrower_id)
                                 console.log(this.responseText); 
                                 if(JSON.parse(this.responseText).length!=0)
                                     {
-                                var content = '<div>'; 
+                                var content = ''; 
                                 var books = JSON.parse(this.responseText);
                                 for (var i=(books.length)-1; i >=0; i--) {
-                                content += "<div id='"+books[i].request_id+"'><a style='cursor: pointer;text-decoration:underline;'onclick='getbookpage("+books[i].isbn+")'>"+books[i].name+"</a>, "+books[i].author+"&nbsp;requested by <a style='cursor: pointer;text-decoration:underline;'onclick='getuserpage("+books[i].borrower_id+")'>"+books[i].borrower_name+"</a><button class='bluebut' onclick='acceptreq("+books[i].request_id+","+books[i].book_id+","+books[i].points_reqd+","+books[i].borrower_id+");'>Accept</button><button class='bluebut' onclick='declinereq("+books[i].request_id+");'>Decline</button></div><hr>";
+                                content += "<div style='width:100%' class='booklink' id='"+books[i].request_id+"'><a style='text-decoration:underline' onclick='getbookpage(\""+books[i].isbn+"\")'>"+books[i].name+"</a>, "+books[i].author+"&nbsp;requested by <a style='text-decoration:underline;'onclick='getuserpage("+books[i].borrower_id+")'>"+books[i].borrower_name+"</a><button class='bluebut' onclick='acceptreq("+books[i].request_id+","+books[i].book_id+","+books[i].points_reqd+","+books[i].borrower_id+");'>Accept</button><button class='bluebut' onclick='declinereq("+books[i].request_id+");'>Decline</button></div><br>";
                             }
-                                 content+="</div>";
+                                 
                                  document.getElementById("Book requests").innerHTML = content;
                                     }
                                    else
                                       {
-                                          document.getElementById("Book requests").innerHTML='No book requests';
+                                          document.getElementById("Book requests").innerHTML='<div style="width:100%"class="booklink">No book requests</div>';
                                       }
                             }
                                   
@@ -466,7 +431,7 @@ function lendbook(id,points_reqd,borrower_id)
 
   
     
-function addpts(pts,id)
+    function addpts(pts,id)
     {
          var points;
          var request1=new XMLHttpRequest();
@@ -507,7 +472,7 @@ function addpts(pts,id)
             
     }
 
-function subpts(pts,borrower_id)
+    function subpts(pts,borrower_id)
     {
        var points;
          var request1=new XMLHttpRequest();
@@ -549,37 +514,37 @@ function subpts(pts,borrower_id)
             
     }
 
-function updatepoints(points,id)
-{
-       var request=new XMLHttpRequest();
-        request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
+    function updatepoints(points,id)
+    {
+           var request=new XMLHttpRequest();
+            request.onreadystatechange=function(){
+                              if(request.readyState===XMLHttpRequest.DONE){
 
-                             if(request.status===200) 
-                              { 
-                                
-                                console.log(this.responseText);  
-                                
-                            }
-                        else 
-                              { 
-                                  console.log(this.responseText); 
-                              }
-                         }               
+                                 if(request.status===200) 
+                                  { 
 
-                    } 
-          if(user_id!=undefined)
-                {
-                                                                             
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"update",args:{table:"User_info", $set:{"points":points},where:{"hasura_id":id}}}));
-                    
-                    
-                }
-}
+                                    console.log(this.responseText);  
+
+                                }
+                            else 
+                                  { 
+                                      console.log(this.responseText); 
+                                  }
+                             }               
+
+                        } 
+              if(user_id!=undefined)
+                    {
+
+                        request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
+                        request.withCredentials=true;
+                        request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                        request.setRequestHeader('Content-type','application/json');
+                        request.send(JSON.stringify({type:"update",args:{table:"User_info", $set:{"points":points},where:{"hasura_id":id}}}));
+
+
+                    }
+    }
 
     //DECLINE REQUEST
     function declinereq(id)
@@ -637,20 +602,20 @@ function updatepoints(points,id)
                                 if(JSON.parse(this.responseText).length!=0)
                                     {
                                 
-                                var content = '<div>'; 
+                                var content = ''; 
                                 var books = JSON.parse(this.responseText);
                                 for (var i=(books.length)-1; i >=0; i--) {
 
-                                content += "<div id='borr"+books[i].request_id+"'><a style='cursor: pointer;text-decoration:underline;'onclick='getbookpage("+books[i].isbn+")'>"+books[i].name+"</a>, "+books[i].author+"&nbsp;borrowed from <a style='cursor: pointer;text-decoration:underline;'onclick='getuserpage("+books[i].lender_id+")'>"+books[i].lender_name+"</a><button class='bluebut' onclick='returnbook("+books[i].request_id+","+books[i].book_id+","+books[i].lender_id+");'>Return</button></div><hr>";
+                                content += "<div style='width:100%' class='booklink' id='borr"+books[i].request_id+"'><a style='text-decoration:underline' onclick='getbookpage(\""+books[i].isbn+"\")'>"+books[i].name+"</a>, "+books[i].author+"&nbsp;borrowed from <a style='text-decoration:underline;'onclick='getuserpage("+books[i].lender_id+")'>"+books[i].lender_name+"</a><button class='bluebut' onclick='returnbook("+books[i].request_id+","+books[i].book_id+","+books[i].lender_id+");'>Return</button></div><br>";
                                 
                             }
-                                 content+="</div>";
+                                 
                                  document.getElementById("Books borrowed").innerHTML = content;
                                  
                             }
                                    else
                                       {
-                                          document.getElementById("Books borrowed").innerHTML='You have not borrowed any books';
+                                          document.getElementById("Books borrowed").innerHTML='<div style="width:100%" class="booklink">You have not borrowed any books. Search for users you may know or borrow some from our top lenders:<br><a style="text-decoration:underline;" onclick="getuserpage(73)"><img style="width:30px;height:30px;border-radius:50%;margin-top:5px;margin-right:4px;" src="http://filestore.bookwormbyrithi.hasura.me/v1/file/j2GnH">Rithika</a><br><a style="text-decoration:underline;"onclick="getuserpage(80)"><img style="width:30px;height:30px;border-radius:50%;margin-top:5px;margin-right:4px;" src="http://filestore.bookwormbyrithi.hasura.me/v1/file/evAfj">Rachana</a></div>';
                                       }
                               }
                                   
@@ -724,44 +689,44 @@ function updatepoints(points,id)
 
 }
 
- function returntoshelf(id,lender_id)
-{
-    var request= new XMLHttpRequest();
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
+     function returntoshelf(id,lender_id)
+    {
+        var request= new XMLHttpRequest();
+                request.onreadystatechange=function(){
+                              if(request.readyState===XMLHttpRequest.DONE){
 
-                             if(request.status===200) 
-                              { 
-                                
-                                console.log(this.responseText); 
-                               alert("Returned successfully!");
-                            }
-                                
-                            
-                                  
-                                
-                                
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                              }
-                         }               
+                                 if(request.status===200) 
+                                  { 
 
-                    } 
-            
-            
-            if(user_id!=undefined)
-                {
-                                                                                                 
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"update",args:{table:"user_shelf", $set:{"returned":true},where:{"book_id":id,"user_id":lender_id}}}));
-                    
-                    
-                }
-}
+                                    console.log(this.responseText); 
+                                   alert("Returned successfully!");
+                                }
+
+
+
+
+
+                                  else 
+                                  { 
+                                      console.log(this.responseText); 
+                                  }
+                             }               
+
+                        } 
+
+
+                if(user_id!=undefined)
+                    {
+
+                        request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
+                        request.withCredentials=true;
+                        request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                        request.setRequestHeader('Content-type','application/json');
+                        request.send(JSON.stringify({type:"update",args:{table:"user_shelf", $set:{"returned":true},where:{"book_id":id,"user_id":lender_id}}}));
+
+
+                    }
+    }
 
     //GET BOOKS LENT   
     function getlent()
@@ -777,18 +742,18 @@ function updatepoints(points,id)
                                     {
                                         
                                 console.log(this.responseText); 
-                                var content = '<div>'; 
+                                var content = ''; 
                                 var books = JSON.parse(this.responseText);
                                 for (var i=(books.length)-1; i >=0; i--) {
                                 var name= books[i].name;
-                                content += "<a style='cursor: pointer;text-decoration:underline;'onclick='getbookpage("+books[i].isbn+")'>"+books[i].name+"</a>, "+books[i].author+"&nbsp;borrowed by&nbsp;<a style='cursor: pointer;text-decoration:underline;'onclick='getuserpage("+books[i].borrower_id+")'>"+books[i].borrower_name+"</a><hr>";
+                                content += "<div style='width:100%' class='booklink'><a style='text-decoration:underline' onclick='getbookpage("+books[i].isbn+")'>"+books[i].name+"</a>, "+books[i].author+"&nbsp;borrowed by&nbsp;<a style='text-decoration:underline;'onclick='getuserpage("+books[i].borrower_id+")'>"+books[i].borrower_name+"</a></div><br>";
                             }
-                                 content+="</div>";
+                                 
                                  document.getElementById("Books lent").innerHTML = content;
                             }
                                   else
                                       {
-                                          document.getElementById("Books lent").innerHTML='You have not lent any books';
+                                          document.getElementById("Books lent").innerHTML='<div style="width:100%"class="booklink">You have not lent any books</div>';
                                       }
                               }
                                   
@@ -861,7 +826,8 @@ function updatepoints(points,id)
                                     if((isbnfull==undefined)||(rating==undefined)||(desc==undefined))
                                         continue;
                                     else
-                                        var isbn=deets.items[i].volumeInfo.industryIdentifiers[0].identifier;
+                                        var isbn=deets.items[i].volumeInfo.industryIdentifiers[0].identifier.toString();
+                                       console.log(isbn);
 
                                    renderbookresult(name,author,isbn);
 
@@ -942,17 +908,51 @@ function updatepoints(points,id)
                     }
     }
     
-    var content;  //WHY?
+    var content;  
     function renderbookresult(name,author,isbn)
     {
-        console.log("called with "+isbn);
-        content+="<a style='cursor: pointer;' onclick='getbookpage("+isbn+")'>"+name+", "+author+"</a><hr>";
+        content+="<a style='cursor: pointer;' onclick='getbookpage(\""+isbn+"\")'>"+name+", "+author+"</a><hr>";
     }
+
+    //get book details page
+    function getbookpage(isbn)
+    {
+        console.log('called with getbookpage '+isbn);
+        var request=new XMLHttpRequest();
+        request.onreadystatechange=function(){
+                              if(request.readyState===XMLHttpRequest.DONE){
+
+                                 if(request.status===200) 
+                                  { 
+
+                                    window.location='/bookdetails.html?isbn='+isbn;
+                                  }
+                                  else 
+                                  { 
+                                      console.log(this.responseText); 
+
+                                  }
+                                }
+
+
+
+
+                             }               
+
+                        request.open('GET',"/bookdetails.html?isbn="+isbn, true);
+                        request.setRequestHeader('Content-type','application/json');
+                        request.send(null);
+
+
+
+
+    }
+
 
     function renderuserresult(name,user_id,file_id)
     {
         console.log("called with "+name);
-        content+="<a style='cursor: pointer;' onclick='getuserpage("+user_id+")'>"+name+"<img class ='searchimg' src='http://filestore.bookwormbyrithi.hasura.me/v1/file/"+file_id+"'></a><hr>";
+        content+="<img class ='searchimg' src='http://filestore.bookwormbyrithi.hasura.me/v1/file/"+file_id+"'/> <a style='cursor: pointer;' onclick='getuserpage("+user_id+")'>"+name+"</a><hr>";
     }
 
     function finalresult()
@@ -993,238 +993,14 @@ function updatepoints(points,id)
             request.withCredentials=true;
             request.send(null);
         }
-      
-      
-        
-    //BOOK DETAILS CODE BEGINS
-    
-   
-     
-        //GET BOOK DEETS
-         function googbook(isbn,flag)
-    {
-        
-         var request= new XMLHttpRequest();
-                request.onreadystatechange=function(){
-                              if(request.readyState===XMLHttpRequest.DONE){
-
-                                 if(request.status===200) 
-                                  { 
-                                       // console.log(this.responseText);
-                                    var deets=JSON.parse(this.responseText);
-                                   var name=deets.items[0].volumeInfo.title;
-                                    var author=deets.items[0].volumeInfo.authors;
-                                    var isbnfull=deets.items[0].volumeInfo.industryIdentifiers[0].identifier;
-                                    var desc=deets.items[0].volumeInfo.description;
-                                    var image=deets.items[0].volumeInfo.imageLinks.thumbnail;
-                                    var rating=deets.items[0].volumeInfo.averageRating;
-                                    if(flag=='notthere')
-                                        {
-                                            
-                                           category=deets.items[0].volumeInfo.categories[0];
-                                           pts=Math.round((rating*10)+7.5);
-                                            id=null;
-                                        }
-                                        
-                                      getlenders(name,author,desc,rating,isbnfull,image,category,pts,id);
-
-                                     
-
-                                   }
-
-                                }
-
-                             }               
-
-
-                
-                if(user_id!=undefined)
-                    {
-                        request.open('GET',"https://www.googleapis.com/books/v1/volumes?q=:isbn"+isbn+"&maxResults=1&key=AIzaSyAGlzBxEtMmHQMYGeQNtML85CC1_sKb-JY", true);
-                        request.send(null);
-
-                    }
-
-    
-    }
-
-
-         //GET LENDERS   
-    function getlenders(name,author,desc,rating,isbnfull,image,category,pts,id)
-    {
        
-             var request= new XMLHttpRequest();
-            
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
 
-                             if(request.status===200) 
-                              { 
-                                
-                               if(JSON.parse(this.responseText).length!=0)
-                                    {
-                                
-                                   console.log(this.responseText);
-                                    var users=JSON.parse(this.responseText);
-                                    renderbook(name,author,desc,rating,isbnfull,image,category,pts,id,users) ;   
-                                
-        
-                                    }
-                                  else
-                                      renderbook(name,author,desc,rating,isbnfull,image,category,pts,id,null);
-                                 
-                                    }
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                                
-                              }
-                            }
-                                  
-                                
-                                
-                              
-                         }               
-
-                    
-           
-            
-            if(user_id!=undefined)
-                {
-                    var useless;
-                    if(id==null)
-                        useless=999;
-                    else
-                        useless=id;
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"select",args:{table:"user_book_shelf", columns:["uname","user_id","profpic"],  where:{"book_id":useless}}}));
-                    
-                    
-                }
-        }
-
-        function renderbook(name,author,desc,rating,isbnfull,image,category,pts,id,users)
-            {   
-                
-                document.getElementById("title").innerHTML=name;
-                document.getElementById("author").innerHTML=author;
-                document.getElementById("cover").src=image;
-                document.getElementById("desc").innerHTML=desc+'<br><br> Points required:'+pts+'<button class="bluebut" onclick="addbook(\''+name+'\',\''+author+'\',\''+category+'\','+pts+','+isbnfull+','+id+')">Add to shelf</button><br>Category:'+category+'<br>ISBN:'+isbnfull+'<br>Rating:'+rating+'';
-                if(users==null)
-                     document.getElementById("lenders").innerHTML='No one lending this book currently';
-                else
-                {
-                    document.getElementById("lenders").innerHTML='Choose a lender to borrow this book from:<br>';
-                 for (var i=0;i<users.length;i++)
-                     {
-                     if((users[i].user_id)==user_id)  
-                         continue;
-                     document.getElementById("lenders").innerHTML+='<a style=\'cursor:pointer;text-decoration:underline\' onclick="getuserpage('+users[i].user_id+')">'+users[i].uname+'</a><button class="reqbut" onclick="sendrequest('+id+','+users[i].user_id+')">Send borrow request</button><br>'; 
-                     }
-                  
-                }
-                
-            }
-
-//enter book to db and to shelf
- function addbook(name,author,category,pts,isbnfull,id)
+  // send request
+function sendrequest(id,lender_id,pts)
     {
-        console.log(id,pts);
-        if(id!=null)
-            addshelf(id);
-        else
-            {
-               var request= new XMLHttpRequest();
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
-
-                             if(request.status===200) 
-                              { 
-                                
-                                var bid=JSON.parse(this.responseText).returning[0].ID; 
-                                console.log(bid);
-                                addshelf(bid);
-                            }
-                                
-                            
-                                  
-                                
-                                
-                              else 
-                              { 
-                                  console.log(this.responseText); 
-                              }
-                         }               
-
-                    } 
-            
-                                                                                          
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"insert",args:{table:"Book", 
-                                    objects:[{"name":name,"author":author,"category":category,"points_reqd":pts,"isbn":isbnfull}],returning:["ID"]}}));
-                    
-                    
-               
- 
-            }
-            
-        
-    }
-
- function addshelf(id)
-    {
-        var request= new XMLHttpRequest();
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
-
-                             if(request.status===200) 
-                              { 
-                                
-                                console.log(this.responseText);
-                                alert('Added to shelf successfully!');
-                            }
-                                
-                            
-                                  
-                                
-                                
-                              else 
-                              { 
-                                  err=JSON.parse(this.responseText); 
-                                  var msg=err.error;
-                                  if(msg=="Uniqueness violation. duplicate key value violates unique constraint \"user_shelf_pkey\"")
-                                      alert("Already in your shelf!");
-                              }
-                         }               
-
-                    } 
-            
-            
-            if(user_id!=undefined)
-                {
-                                                                                                 
-                    request.open('POST',"http://data.bookwormbyrithi.hasura.me/v1/query ", true);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"insert",args:{table:"user_shelf", objects:[{"user_id":user_id,"book_id":id,"returned":true}]}}));
-                    
-                    
-                }
-            
-    }
-    
- 
-// send request
-function sendrequest(id,lender_id)
-    {
-      
+        console.log(userpoints,pts);
+        userpoints=userpoints-pts;
+        console.log(userpoints);
         if(userpoints<0)
                 alert("Insufficient points!"); 
         else
@@ -1274,3 +1050,7 @@ function sendrequest(id,lender_id)
             
         }
        
+     
+     
+        
+   

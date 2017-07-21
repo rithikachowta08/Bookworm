@@ -28,6 +28,14 @@ app.get('/dash.js', function (req, res) {
     res.sendFile(path.join(__dirname,"js","dash.js"));
 });
 
+app.get('/book.js', function (req, res) {
+    res.sendFile(path.join(__dirname,"js","book.js"));
+});
+
+app.get('/user.js', function (req, res) {
+    res.sendFile(path.join(__dirname,"js","user.js"));
+});
+
 app.get('/register.html', function (req, res) {
     res.sendFile(path.join(__dirname,"html","register.html"));
 });

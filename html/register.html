@@ -88,8 +88,12 @@
                               }
                               else 
                               { 
-                                alert("Please choose a valid username and password!");
-                                console.log(this.responseText);
+                                var err=JSON.parse(this.responseText);
+                                if(err.message=='Incorrect credentials. Please try again.')
+                                    alert('Incorrect credentials!');
+                                if(err.code=="user-already-exists")
+                                    alert("This username already exists. Please choose a different username");
+                                
                               }
                          }               
 

@@ -61,77 +61,9 @@
     var user_id;
     var auth_token;
         
-        //FUNCTION TO CHECK IF USER DETAILS ALREADY ENTERED
-        checkuser= function()
-        {
-                    
-                    var request= new XMLHttpRequest();
-                    request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
-
-                             if(request.status===200) 
-                              { 
-                               console.log(this.responseText);
-                               console.log(this.responseText=="[]");
-                               if((this.responseText)=="[]")
-                                   localStorage.setItem("done","false");
-                                else
-                                   localStorage.setItem("done","true");
-                                console.log(localStorage.getItem("done"));
-                              }
-                              else 
-                              { 
-                                console.log(this.responseText);
-                              }
-                         }               
-
-                    }     
-                    request.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.withCredentials=true;
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.send(JSON.stringify({type:"select",args:{
-                    table:"User_info",
-                    columns:[
-                        "city"
-                    ],
-                    where:{"hasura_id":user_id}
-                }
-}));  }
         
-         //FUNCTION TO INSERT HASURA_ID AND CITY--EXECUTES ONLY ONCE
-        insertuser= function()
-        {
-                    var city=localStorage.getItem("city");
-                    var name=document.getElementById("uname").value;
-                    var request= new XMLHttpRequest();
-                    request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
-
-                             if(request.status===200) 
-                              { 
-                               console.log("inserted user");
-                                
-                              }
-                              else 
-                              { 
-                                console.log(this.responseText);
-                              }
-                         }               
-
-                    }     
-                    request.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
-                    request.setRequestHeader('Content-type','application/json');
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.withCredentials=true;
-                    request.send(JSON.stringify({type:"insert",args:{
-        table:"User_info",
-        objects:[
-            {"hasura_id":user_id,"points":400,"city":city,"name":name,"file_id":null}
-        ]
-    }
-})); 
-        } 
+        
+         
         // LOGIN
        $(document).ready(function()
         {
@@ -152,10 +84,7 @@
                                 document.cookie='auth_token='+auth_token;
                                 console.log(document.cookie);
                                 checkuser();
-                                console.log(localStorage.getItem("done"));
-                                if((localStorage.getItem("done"))=="false")
-                                  insertuser();
-                                window.location="/dashboard.html";
+                                
                               }
                               else 
                               { 
@@ -173,8 +102,80 @@
         }
        });
     
+    //FUNCTION TO CHECK IF USER DETAILS ALREADY ENTERED
+      function checkuser()
+        {
+             var request= new XMLHttpRequest();
+                    request.onreadystatechange=function(){
+                          if(request.readyState===XMLHttpRequest.DONE){
+
+                             if(request.status===200) 
+                              { 
+                               console.log(this.responseText);
+                               console.log(this.responseText=="[]");
+                               if((this.responseText)=="[]")
+                                   insertuser();
+                                else
+                                   window.location="/dashboard.html";
+                              }
+                              else 
+                              { 
+                                var err=JSON.parse(this.responseText);
+                                if(err.message=='Incorrect credentials. Please try again.')
+                                    alert('Incorrect credentials!');
+                              }
+                         }               
+
+                    }     
+                    request.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
+                    request.setRequestHeader('Content-type','application/json');
+                    request.withCredentials=true;
+                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request.send(JSON.stringify({type:"select",args:{
+                    table:"User_info",
+                    columns:[
+                        "city"
+                    ],
+                    where:{"hasura_id":user_id}
+                }
+}));  }   
+        
+        
        
         
+         //FUNCTION TO INSERT HASURA_ID AND CITY--EXECUTES ONLY ONCE
+        insertuser= function()
+        {
+                    var city=localStorage.getItem("city");
+                    var name=document.getElementById("uname").value;
+                    var request= new XMLHttpRequest();
+                    request.onreadystatechange=function(){
+                          if(request.readyState===XMLHttpRequest.DONE){
+
+                             if(request.status===200) 
+                              { 
+                               console.log("inserted user");
+                                window.location="/dashboard.html";
+                                
+                              }
+                              else 
+                              { 
+                                console.log(this.responseText);
+                              }
+                         }               
+
+                    }     
+                    request.open('POST', "http://data.bookwormbyrithi.hasura.me/v1/query", true);
+                    request.setRequestHeader('Content-type','application/json');
+                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
+                    request.withCredentials=true;
+                    request.send(JSON.stringify({type:"insert",args:{
+        table:"User_info",
+        objects:[
+            {"hasura_id":user_id,"points":400,"city":city,"name":name,"file_id":null}
+        ]
+    }
+})); }
        
           
     </script>

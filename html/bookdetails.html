@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bookworm</title>
@@ -9,8 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie|Handlee|Patrick+Hand+SC|Clicker+Script|Sacramento|Tangerine">
     <link rel="stylesheet" type="text/css" href="../indexstyles.css">
     <style>
-
-        .reqbut
+       .reqbut
         {
             background-color: darkblue;
         width: 150px;
@@ -92,6 +92,7 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+            padding:100px 50px 100px 50px;
         }
  
 
@@ -100,13 +101,21 @@
         background-color: rgba(0,0,0,0.7);;
         color:white;
         text-align: center;
-        height: auto;
-        padding:40px;
+        padding:60px;
         padding-bottom:100px;
-        border-top: none;
+        
         }
         
-       
+    .lenderpic
+        {
+            width:30px;
+            height:30px;
+            border-radius:50%;
+            margin-top:5px;
+            margin-left:4px;
+            margin-right:9px;
+            margin-bottom:-10px;
+        }
    
     .dropdown {
     position: relative;
@@ -133,6 +142,28 @@
 
 .dropdown-content a:hover {background-color: #f1f1f1;cursor:pointer; }
 .show {display:block;}
+
+.star-ratings-sprite {
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+  font-size: 0;
+  height: 23px;
+  float:left;
+  margin:5px 5px 5px 0px;
+  line-height: 0;
+  overflow: hidden;
+  text-indent: -999em;
+  width: 110px;
+ }
+  
+  .star-ratings-sprite-rating {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+    background-position: 0 100%;
+    float: left;
+    height: 21px;
+    display:block;
+  }
+  
+}
     </style>
 </head>
 <body>
@@ -147,15 +178,16 @@
   </div>
 </div></div></h1>
             <h5 class="subh">Lend.Borrow.Connect</h5>
-            
-        </div>
+            </div>
         <div id="dash">
             <button class="bluebut" style="float:right;width:60px;height:30px;margin:60px;font-size:15px;" onclick='window.location="/dashboard.html"'>Back</button>
             <div class="tabcontent" id="bookcon">
                 <h1 id="title" style="font-family:'Sacramento'"></h1>
                 <h4 id="author" style="font-family:'Patrick Hand SC"></h4>
-                <img id= "cover" style="float:left;margin-right:40px;height:320px;margin-bottom:30px;"/>
+                <img id= "cover" style="float:left;margin-right:40px;height:320px;padding-bottom:40px;"/>
                 <div style="width=70%;text-align:left;" id="desc"></div>
+                <div class="star-ratings-sprite"><span style="width:52%" class="star-ratings-sprite-rating" id='rating'></span></div>
+                <br>
                 <div id="lenders" style="margin-top:20px;text-align:left;"></div>
             </div>
         </div> 
@@ -170,66 +202,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../dash.js"></script>
-    <script>
-        
-          function getParameterByName(name, url) 
-        {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-        
-        var isbn=getParameterByName("isbn");
-        var category,pts,id,flag;
-        
-        //GET BOOK CATEGORY,PTS,ID
-        var request= new XMLHttpRequest();
-            request.onreadystatechange=function(){
-                          if(request.readyState===XMLHttpRequest.DONE){
-
-                             if(request.status===200) 
-                              { 
-                                 if(JSON.parse(this.responseText).length!=0)
-                                     {
-                                        category=JSON.parse(this.responseText)[0].category;
-                                        pts=JSON.parse(this.responseText)[0].points_reqd;
-                                        id=JSON.parse(this.responseText)[0].ID;
-                                      
-                            
-                                     }
-                                  else
-                                      {
-                                          flag='notthere';
-                                          
-                                      }
-                                 googbook(isbn,flag);
-                                
-                                }
-                                  else
-                                      document.getElementById(category).innerHTML='Nothing in this category';
-                              }
-                              else 
-                              { 
-                                  console.log(this.responseText);
-                              }
-                         }               
-
-                      
-            
-            if(user_id!=undefined)
-                {
-                    request.open('POST'," http://data.c100.hasura.me/v1/query ", true);
-                    request.setRequestHeader('Authorization','Bearer '+ auth_token);
-                    request.withCredentials=true;
-                    request.setRequestHeader('Content-type','application/json');
-                    request.send(JSON.stringify({type:"select",args:{table:"Book", columns:["category","points_reqd","ID"],  where:{"isbn":isbn}}}));
-                    
-                }
-    </script>
-    
+    <script src="../book.js"></script>
     </body>
 </html>
